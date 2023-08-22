@@ -52,9 +52,13 @@ def parse_args():
 
     # parser.add_argument("-c", "--cfg", default="examples/Pyraformer/Pyraformer_METR-LA_in96_out96.py", help="training config")
     parser.add_argument("--gpus", default="1", help="visible gpus")
+    # parser.add_argument("--gpus", default="0", help="visible gpus")
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_args()
+
+    print('torch.cuda.device_count() in run.py:')
+    print(torch.cuda.device_count())
 
     launch_training(args.cfg, args.gpus)
