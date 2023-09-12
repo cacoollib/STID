@@ -1,11 +1,6 @@
-# import os
-
-import numpy as np
 import torch
 
 from ..base_tsf_runner import BaseTimeSeriesForecastingRunner
-
-from basicts.data.transform import re_standard_transform
 
 
 class SimpleTimeSeriesForecastingRunner(BaseTimeSeriesForecastingRunner):
@@ -80,30 +75,4 @@ class SimpleTimeSeriesForecastingRunner(BaseTimeSeriesForecastingRunner):
         # post process
         prediction = self.select_target_features(prediction_data)
         real_value = self.select_target_features(future_data)
-
-        if not train:
-            # print('prediction.type: ' + str(type(prediction)))
-            print('prediction.shape: ' + str(prediction.shape))
-            # print('real_value.type: ' + str(type(real_value)))
-            print('real_value.shape: ' + str(real_value.shape))
-            #
-            # print(os.getcwd())
-
-            # the mean and std need to be manually updated from generate_training_data
-            scaler = {"mean": 3.25250095456281, "std": 5.547118144526464}
-
-            error_scaler = {"mean": 0, "std": 5.547118144526464}
-
-            prediction_path = 'checkpoints/tensorCsv/scooter_prediction.npy'
-            np.save(prediction_path, re_standard_transform(prediction, **scaler).cpu().data.numpy())
-
-            real_value_path = 'checkpoints/tensorCsv/scooter_real_value.npy'
-            np.save(real_value_path, re_standard_transform(real_value, **scaler).cpu().data.numpy())
-
-            prediction_error = torch.sub(prediction, real_value)
-            prediction_error_path = 'checkpoints/tensorCsv/prediction_error.npy'
-            np.save(prediction_error_path, re_standard_transform(prediction_error, **error_scaler).cpu().data.numpy())
-
-            print('Test error updated')
-
         return prediction, real_value

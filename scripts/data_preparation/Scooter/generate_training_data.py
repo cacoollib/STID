@@ -6,7 +6,7 @@ import argparse
 
 import numpy as np
 
-from generate_adj_mx import generate_adj_pems04
+from generate_adj_mx import generate_adj_scooter
 # TODO: remove it when basicts can be installed by pip
 sys.path.append(os.path.abspath(__file__ + "/../../../.."))
 from basicts.data.transform import standard_transform
@@ -41,6 +41,10 @@ def generate_data(args: argparse.Namespace):
     data = np.load(data_file_path)["data"]
     data = data[..., target_channel]
     print("raw time series shape: {0}".format(data.shape))
+
+    print(data[0:2, 0:3, :])
+
+    stop = input('Check data and continue')
 
     l, n, f = data.shape
     num_samples = l - (history_seq_len + future_seq_len) + 1
@@ -101,7 +105,7 @@ def generate_data(args: argparse.Namespace):
         shutil.copyfile(args.graph_file_path, output_dir + "/adj_mx.pkl")
     else:
         # generate and copy
-        generate_adj_pems04()
+        generate_adj_scooter()
         shutil.copyfile(graph_file_path, output_dir + "/adj_mx.pkl")
 
 
@@ -109,13 +113,16 @@ if __name__ == "__main__":
     # sliding window size for generating history sequence and target sequence
     HISTORY_SEQ_LEN = 12
     FUTURE_SEQ_LEN = 12
+    # HISTORY_SEQ_LEN = 24
+    # FUTURE_SEQ_LEN = 6
 
     TRAIN_RATIO = 0.6
     VALID_RATIO = 0.2
     TARGET_CHANNEL = [0]                   # target channel(s)
-    STEPS_PER_DAY = 288
+    STEPS_PER_DAY = 24
 
-    DATASET_NAME = "PEMS04"
+    # DATASET_NAME = "PEMS04"
+    DATASET_NAME = "Scooter"
     TOD = True                  # if add time_of_day feature
     DOW = True                  # if add day_of_week feature
     OUTPUT_DIR = "datasets/" + DATASET_NAME

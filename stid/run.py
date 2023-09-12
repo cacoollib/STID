@@ -42,7 +42,8 @@ def parse_args():
     # parser.add_argument("-c", "--cfg", default="examples/FEDformer/FEDformer_Electricity.py", help="training config")
     # parser.add_argument("-c", "--cfg", default="examples/Pyraformer/Pyraformer_ETTh1.py", help="training config")
     # parser.add_argument("-c", "--cfg", default="examples/FEDformer/FEDformer_Weather.py", help="training config")
-    parser.add_argument("-c", "--cfg", default="examples/STID/STID_PEMS04.py", help="training config")
+    # parser.add_argument("-c", "--cfg", default="examples/STID/STID_PEMS04.py", help="training config")
+    parser.add_argument("-c", "--cfg", default="examples/STID/STID_Scooter.py", help="training config")
     # parser.add_argument("-c", "--cfg", default="examples/DGCRN/DGCRN_METR-LA.py", help="training config")
     # parser.add_argument("-c", "--cfg", default="examples/MTGNN/MTGNN_METR-LA.py", help="training config")
     # parser.add_argument("-c", "--cfg", default="examples/Informer/Informer_Weather.py", help="training config")
@@ -57,6 +58,9 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
+
+    print('args:')
+    print(args)
 
     print('torch.cuda.device_count() in run.py:')
     print(torch.cuda.device_count())

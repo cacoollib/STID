@@ -16,8 +16,9 @@ CFG = EasyDict()
 CFG.DESCRIPTION = "STID model configuration"
 CFG.RUNNER = SimpleTimeSeriesForecastingRunner
 CFG.DATASET_CLS = TimeSeriesForecastingDataset
-CFG.DATASET_NAME = "PEMS04"
-CFG.DATASET_TYPE = "Traffic flow"
+CFG.DATASET_NAME = "Scooter"
+# CFG.DATASET_TYPE = "Traffic flow"
+CFG.DATASET_TYPE = "Scooter Trip Start"
 CFG.DATASET_INPUT_LEN = 12
 CFG.DATASET_OUTPUT_LEN = 12
 CFG.GPU_NUM = 1
@@ -33,9 +34,9 @@ CFG.MODEL = EasyDict()
 CFG.MODEL.NAME = "STID"
 CFG.MODEL.ARCH = STID
 CFG.MODEL.PARAM = {
-    "num_nodes": 307,
+    "num_nodes": 100,
     "input_len": 12,
-    "input_dim": 3,
+    "input_dim": 2,
     "embed_dim": 32,
     "output_len": 12,
     "num_layer": 3,
@@ -45,11 +46,11 @@ CFG.MODEL.PARAM = {
     "if_D_i_W": True,
     "temp_dim_tid": 32,
     "temp_dim_diw": 32,
-    "time_of_day_size": 288,
+    "time_of_day_size": 24,
     "day_of_week_size": 7
 }
-CFG.MODEL.FORWARD_FEATURES = [0, 1, 2] # traffic flow, time in day
-CFG.MODEL.TARGET_FEATURES = [0] # traffic flow
+CFG.MODEL.FORWARD_FEATURES = [0, 1, 2] # scooter trip start, time in day, day of week
+CFG.MODEL.TARGET_FEATURES = [0] # scooter trip start
 
 # ================= optim ================= #
 CFG.TRAIN = EasyDict()

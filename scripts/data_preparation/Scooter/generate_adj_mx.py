@@ -62,8 +62,8 @@ def get_adjacency_matrix(distance_df_filename: str, num_of_vertices: int, id_fil
             return adjacency_matrix_connectivity, adjacency_matrix_distance
 
 
-def generate_adj_pems04():
-    distance_df_filename, num_of_vertices = "datasets/raw_data/PEMS04/PEMS04.csv", 307
+def generate_adj_scooter():
+    distance_df_filename, num_of_vertices = "datasets/raw_data/Scooter/Scooter.csv", 100
     if os.path.exists(distance_df_filename.split(".", maxsplit=1)[0] + ".txt"):
         id_filename = distance_df_filename.split(".", maxsplit=1)[0] + ".txt"
     else:
@@ -78,7 +78,7 @@ def generate_adj_pems04():
         distance_mx = distance_mx + np.identity(distance_mx.shape[0])
     else:
         print("kindly note that there is no self loop in adjacency matrices.")
-    with open("datasets/raw_data/PEMS04/adj_PEMS04.pkl", "wb") as f:
+    with open("datasets/raw_data/Scooter/adj_Scooter.pkl", "wb") as f:
         pickle.dump(adj_mx, f)
-    with open("datasets/raw_data/PEMS04/adj_PEMS04_distance.pkl", "wb") as f:
+    with open("datasets/raw_data/Scooter/adj_Scooter_distance.pkl", "wb") as f:
         pickle.dump(distance_mx, f)
